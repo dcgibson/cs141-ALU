@@ -14,22 +14,22 @@ module ripple_adder32(X, Y, Cin, Cout, S);
     output wire [31:0] S;
     output wire Cout;
 
-    wire [31:0] w;
+    wire [32:0] w;
 
     assign w[0] = Cin;
 
     generate
         genvar i;
-        for (i = 1; i < 32; i = i + 1) begin
+        for (i = 0; i < 32; i = i + 1) begin
             full_adder full_add_gen (
                 .A(X[i]),
                 .B(Y[i]),
-                .Cin(w[i-1]),
-                .Cout(w[i]),
+                .Cin(w[i]),
+                .Cout(w[i+1]),
                 .S(S[i])
             );
         end
     endgenerate
 
-    assign Cout = w[31];
+    assign Cout = w[32];
 endmodule

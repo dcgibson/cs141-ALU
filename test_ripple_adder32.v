@@ -6,27 +6,27 @@
 module test_ripple_adder32;
 
     // Inputs
-    reg [31:0] tX, tY;
-    reg tCin;
+    reg [31:0] X, Y;
+    reg Cin;
 
     // Outputs
-    wire tCout;
-    wire [31:0] tS;
+    wire Cout;
+    wire [31:0] S;
 
     // Instantiate the module
     ripple_adder32 uut (
-        .X(tX[31:0]),
-        .Y(tY),
-        .Cin(tCin),
-        .Cout(tCout),
-        .S(tS)
+        .X(X),
+        .Y(Y),
+        .Cin(Cin),
+        .Cout(Cout),
+        .S(S)
     );
 
     initial begin
-        tX = 32'b1; tY = 32'b0; tCin = 0; #10
-        if (tS !== 32'b1 || tCout !== 0) begin
+        X = 32'b11; Y = 32'b00; Cin = 0; #10
+        if (S !== 32'b11 || Cout !== 0) begin
             $display("ERROR: X=%b, Y=%b, Cin=%b, S=%b, Cout=%b",
-                tX, tY, tCin, tS, tCout);
+                X, Y, Cin, S, Cout);
         end
     end
 endmodule
