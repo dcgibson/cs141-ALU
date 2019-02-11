@@ -23,11 +23,16 @@ module test_ripple_adder32;
     );
 
     initial begin
+        // GTKWave test
+        $dumpfile("ripple_adder32.vcd");
+        $dumpvars(0, uut);
         X = 32'b11; Y = 32'b00; Cin = 0; #10
-        if (S !== 32'b11 || Cout !== 0) begin
-            $display("ERROR: X=%b, Y=%b, Cin=%b, S=%b, Cout=%b",
-                X, Y, Cin, S, Cout);
-        end
+        X = 32'b11; Y = 32'b01; Cin = 0; #10
+        X = 32'b11; Y = 32'b00; Cin = 1; #10
+        X = 32'b1011; Y = 32'b0111; Cin = 1; #10
+        X = 32'hFFFFFFFF; Y = 32'b1; Cin = 1; #10
+        X = 32'hFFFFFFFF; Y = 32'hFFFFFFFF; Cin = 1; #10
+        $finish;
     end
 endmodule
         
