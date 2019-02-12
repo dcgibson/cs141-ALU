@@ -2,7 +2,7 @@
 `default_nettype none
 
 // CS 141
-// Module Name: Half-Adder
+// Module Name: half_adder
 // Description: Computes the sum of two 1-bit inputs, assigning the
 //              sum to S, and any carry bit to C
 

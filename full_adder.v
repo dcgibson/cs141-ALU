@@ -2,7 +2,7 @@
 `default_nettype none
 
 // CS 141
-// Module Name: Full-Adder
+// Module Name: full_adder
 // Description: Extends the half-adder by accepting a carry-in bit
 
 module full_adder(A, B, Cin, Cout, S);

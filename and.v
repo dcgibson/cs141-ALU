@@ -2,7 +2,7 @@
 `default_nettype none
 
 //  CS 141
-//  Module Name: AND
+//  Module Name: and32
 //  Description: computes the bitwise OR of two 32-bit inputs
 
 module and32(X, Y, Z);

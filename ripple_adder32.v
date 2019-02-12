@@ -2,7 +2,7 @@
 `default_nettype none
 
 // CS 141
-// Module Name: Ripple-Adder32
+// Module Name: ripple_adder32
 // Description: Sums two 32-bit inputs and a carry in bit to
 //  produce a 32-bit result and a carry out. Based on the
 //  Ripple-Carry Adder in the textbook.
