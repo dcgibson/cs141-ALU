@@ -3,7 +3,8 @@
 
 // CS 141
 // Module Name: mux_8to1
-// Description: built from mux_4to1 and mux_2to1 gates, parameterized.
+// Description: A parameterized 8-to-1 multiplexer, built off of
+// the 4-to-1 mux and 2-to-1 mux.
 
 module mux_8to1(A, B, C, D, E, F, G, H, S, Z);
     parameter WIDTH = 32;
@@ -14,6 +15,8 @@ module mux_8to1(A, B, C, D, E, F, G, H, S, Z);
 
     wire [(WIDTH)-1:0] mux_0_out, mux_1_out;
 
+    // Use the two least-significant bits to select 2 outputs
+    // to continue on to the 2-to-1 mux.
     mux_4to1 #(.WIDTH(WIDTH)) MUX_0 (
         .A(A),
         .B(B),
@@ -22,6 +25,7 @@ module mux_8to1(A, B, C, D, E, F, G, H, S, Z);
         .S(S[1:0]),
         .Z(mux_0_out)
     );
+
     mux_4to1 #(.WIDTH(WIDTH)) MUX_1 (
         .A(E),
         .B(F),
@@ -30,6 +34,8 @@ module mux_8to1(A, B, C, D, E, F, G, H, S, Z);
         .S(S[1:0]),
         .Z(mux_1_out)
     );
+
+    // Uses the most-significant bit to select final output.
     mux_2to1 #(.WIDTH(WIDTH)) MUX_2 (
         .A(mux_0_out),
         .B(mux_1_out),

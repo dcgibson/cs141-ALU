@@ -3,7 +3,8 @@
 
 // CS 141
 // Module Name: mux_16to1
-// Description: parameterized 16-to-1 mux
+// Description: A parameterized 16-to-1 multiplexer, built off
+// the 8-to-1 mux and 2-to-1 mux.
 
 module mux_16to1(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, S, Z);
     parameter WIDTH = 32;
@@ -14,6 +15,8 @@ module mux_16to1(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, S, Z);
 
     wire [(WIDTH)-1:0] mux_0_out, mux_1_out;
 
+    // Use the three least-significant bits to select two outputs
+    // to continue on to the 2-to-1 mux.
     mux_8to1 #(.WIDTH(WIDTH)) MUX_0 (
         .A(A),
         .B(B),
@@ -38,6 +41,8 @@ module mux_16to1(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, S, Z);
         .S(S[2:0]),
         .Z(mux_1_out)
     );
+
+    // Uses the most-significant bit to select final output.
     mux_2to1 #(.WIDTH(WIDTH)) MUX_2 (
         .A(mux_0_out),
         .B(mux_1_out),

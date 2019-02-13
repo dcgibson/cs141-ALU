@@ -3,7 +3,8 @@
 
 // CS 141
 // Module Name: mux_4to1
-// Taken from the section on parameters from Verilog Cheatsheet
+// A parameterized 4-to-1 multiplexer, based off of the 2-to-1
+// multiplexer. Largely taken from the Verilog Cheatsheet.
 
 module mux_4to1(A, B, C, D, S, Z);
     parameter WIDTH = 32;

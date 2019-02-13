@@ -3,7 +3,8 @@
 
 // CS 141
 // Module Name: mux_2to1
-// Taken from the section on parameters from Verilog Cheatsheet
+// A parameterized 2-to-1 multiplexer.
+// Basically from the section on parameters from Verilog Cheatsheet
 
 module mux_2to1(A, B, S, Z);
     parameter WIDTH = 32;
