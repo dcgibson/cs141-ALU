@@ -24,7 +24,7 @@ module test_mux_4to1;
         A = 16'h0; B = 16'h1; C = 16'h2; D = 16'h3;
         for (S = 0; S < 2'b11; S = S + 1) begin
             #10
-            $display("A=%h, B=%h, C=%h, D=%h, S=%b, Z=%h",
+            $display("A=%h, B=%h, C=%h, D=%h, S=%h, Z=%h",
                 A, B, C, D, S, Z);
         end
     end

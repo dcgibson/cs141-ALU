@@ -22,7 +22,7 @@ module test_mux_8to1;
         E = 16'h4; F = 16'h5; G = 16'h6; H = 16'h7;
         for (S = 0; S <= 3'b11; S = S + 3'b1) begin
             #10
-            $display("A=%h, B=%h, C=%h, D=%h, E=%h, \nF=%h, G=%h, H=%h, S=%b, Z=%h",
+            $display("A=%h, B=%h, C=%h, D=%h, E=%h, \nF=%h, G=%h, H=%h, S=%h, Z=%h\n",
                 A, B, C, D, E, F, G, H, S, Z);
         end
     end

@@ -29,7 +29,7 @@ module test_mux_16to1;
             
             #10
 
-            $display("S = %b, Z = %h", S, Z);
+            $display("S = %h, Z = %h", S, Z);
         end
     end
 endmodule
