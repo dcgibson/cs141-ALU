@@ -44,11 +44,16 @@ module test_alu;
 		// YOUR CODE HERE
 		// loop through all important test vectors
 		// this triggers the always block
-        X = 32'hAB442200; Y = 32'hAB881010; op_code = 4'b0000; #10;
-        X = 32'h11001100; Y = 32'h11001010; op_code = 4'b0001; #10;
-		
-		$finish;
-	
+       
+        // Check elementary logical functions, up to but not
+        // including ADD 
+        for (op_code = 0; op_code < 4'b0101; op_code = op_code + 4'b0001) begin
+            X = 32'hFF00FF00; Y = 32'hF0FFF000; #10;
+            X = 32'hFFFFFFFF; Y = 32'hFFFFFFFF; #10;
+            X = 32'h00000000; Y = 32'hFFFFFFFF; #10;
+            X = 32'hFFFFFFFF; Y = 32'h00000000; #10;
+            X = 32'h00000000; Y = 32'h00000000; #10;
+        end
 	end
 	
 	// an 'always' block is executed whenever any of the variables in the sensitivity
@@ -58,21 +63,29 @@ module test_alu;
 		case (op_code)
 			`ALU_OP_AND: begin
 				//only executes when the op code is 0000 (AND)
-                $display("AND: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
 				if( Z !== (X & Y) ) begin
-					$display("ERROR: AND:  op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
+					$display("ERROR: AND: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
 					error = error + 1;
 				end
 			end
 			// ADD IN YOUR OWN OP CODE CHECKERS HERE!!!
 			`ALU_OP_XOR: begin
-                $display("XOR: op_code=%b, X=%h, Y=%h, Z=%h", op_code, X, Y, Z);
-
+                if (Z !== (X ^ Y)) begin
+                    $display("ERROR: XOR: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
+                    error = error + 1;
+                end
 			end
 			`ALU_OP_OR: begin
-                $display("OR:  op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
+                if (Z !== (X | Y)) begin
+                    $display("ERROR: OR: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
+                    error = error + 1;
+                end
 			end
 			`ALU_OP_NOR: begin
+                if (Z !== (~(X | Y))) begin
+                    $display("ERROR: NOR: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
+                    error = error + 1;
+                end
 			end
 			`ALU_OP_ADD: begin
 			end
