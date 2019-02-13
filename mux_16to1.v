@@ -23,7 +23,7 @@ module mux_16to1(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, S, Z);
         .F(F),
         .G(G),
         .H(H),
-        .S(S[3:1]),
+        .S(S[2:0]),
         .Z(mux_0_out)
     );
     mux_8to1 #(.WIDTH(WIDTH)) MUX_1 (
@@ -35,13 +35,13 @@ module mux_16to1(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, S, Z);
         .F(N),
         .G(O),
         .H(P),
-        .S(S[3:1]),
+        .S(S[2:0]),
         .Z(mux_1_out)
     );
     mux_2to1 #(.WIDTH(WIDTH)) MUX_2 (
-        .X(mux_0_out),
-        .Y(mux_1_out),
-        .S(S[0]),
+        .A(mux_0_out),
+        .B(mux_1_out),
+        .S(S[3]),
         .Z(Z)
     );
 endmodule
