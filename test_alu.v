@@ -45,15 +45,15 @@ module test_alu;
 		// loop through all important test vectors
 		// this triggers the always block
        
-        // Check elementary logical functions, up to but not
-        // including ADD 
-        for (op_code = 0; op_code < 4'b0101; op_code = op_code + 4'b0001) begin
-            X = 32'hFF00FF00; Y = 32'hF0FFF000; #10;
-            X = 32'hFFFFFFFF; Y = 32'hFFFFFFFF; #10;
-            X = 32'h00000000; Y = 32'hFFFFFFFF; #10;
-            X = 32'hFFFFFFFF; Y = 32'h00000000; #10;
-            X = 32'h00000000; Y = 32'h00000000; #10;
-        end
+      // Checks elementary logical functions, up to but not
+      // including ADD 
+      for (op_code = 0; op_code < 4'b0101; op_code = op_code + 4'b0001) begin
+			X = 32'hFF00FF00; Y = 32'hF0FFF000; #10;
+         X = 32'hFFFFFFFF; Y = 32'hFFFFFFFF; #10;
+         X = 32'h00000000; Y = 32'hFFFFFFFF; #10;
+         X = 32'hFFFFFFFF; Y = 32'h00000000; #10;
+         X = 32'h00000000; Y = 32'h00000000; #10;
+      end
 	end
 	
 	// an 'always' block is executed whenever any of the variables in the sensitivity
