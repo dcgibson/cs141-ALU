@@ -60,17 +60,17 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
   );
 
   mux_16to1 MUX_0 (
-      .A(and_0),
-      .B(or_0),
-      .C(xor_0),
-      .D(nor_0),
-      .E(add_0),
-      .F(sub_0),
-      .G(slt_0),
-      .H(srl_0),
-      .I(sll_0),
-      .J(sra_0),
-      .K(0),
+      .A(and_0),    // op_code 0000
+      .B(or_0),     // op_code 0001
+      .C(xor_0),    // op_code 0010
+      .D(nor_0),    // op_code 0011
+      .E(0),        // op_code 0100
+      .F(add_0),    // op_code 0101
+      .G(sub_0),    // op_code 0110
+      .H(slt_0),    // op_code 0111
+      .I(srl_0),    // op_code 1000
+      .J(sll_0),    // op_code 1001
+      .K(sra_0),    // op_code 1010
       .L(0),
       .M(0),
 	  .N(0),
