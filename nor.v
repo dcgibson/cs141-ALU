@@ -9,5 +9,5 @@ module nor32(X, Y, Z);
     input wire [31:0] X, Y;
     output wire [31:0] Z;
 
-    assign Z = X ~| Y;
+    assign Z = ~(X | Y);
 endmodule

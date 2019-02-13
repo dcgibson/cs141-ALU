@@ -12,21 +12,21 @@ module mux_4to1(A, B, C, D, S, Z);
     input wire [1:0] S;
     output wire [(WIDTH-1):0] Z;
 
-    wire mux_0_out, mux_1_out;
+    wire [(WIDTH)-1:0] mux_0_out, mux_1_out;
 
-    mux_2to1 #(.N(WIDTH)) MUX_0 (
+    mux_2to1 #(.WIDTH(WIDTH)) MUX_0 (
         .X(A),
         .Y(B),
         .S(S[1]),
         .Z(mux_0_out)
     );
-    mux_2to1 #(.N(WIDTH)) MUX_1 (
+    mux_2to1 #(.WIDTH(WIDTH)) MUX_1 (
         .X(C),
         .Y(D),
         .S(S[1]),
         .Z(mux_1_out)
     );
-    mux_2to1 #(.N(WIDTH)) MUX_2 (
+    mux_2to1 #(.WIDTH(WIDTH)) MUX_2 (
         .X(mux_0_out),
         .Y(mux_1_out),
         .S(S[0]),

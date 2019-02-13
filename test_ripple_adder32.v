@@ -32,7 +32,7 @@ module test_ripple_adder32;
         X = 32'b1011; Y = 32'b0111; Cin = 1; #10
         X = 32'hFFFFFFFF; Y = 32'b1; Cin = 1; #10
         X = 32'hFFFFFFFF; Y = 32'hFFFFFFFF; Cin = 1; #10
-        $finish;
+		  $finish;
     end
 endmodule
         

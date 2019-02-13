@@ -33,16 +33,19 @@ module test_alu;
 	);
 
 	// HINT: 'integer' variables might be useful
-	
+	integer error = 0;
 	initial begin
 		// Initialize Inputs
 		X = 0;
 		Y = 0;
-		op_code = 0
+		op_code = 0;
+		
 		
 		// YOUR CODE HERE
 		// loop through all important test vectors
 		// this triggers the always block
+        X = 32'hAB442200; Y = 32'hAB881010; op_code = 4'b0000; #10;
+        X = 32'h11001100; Y = 32'h11001010; op_code = 4'b0001; #10;
 		
 		$finish;
 	
@@ -53,17 +56,21 @@ module test_alu;
 	always @(X,Y,op_code) begin
 		#1;
 		case (op_code)
-			`ALU_OP_AND : begin
+			`ALU_OP_AND: begin
 				//only executes when the op code is 0000 (AND)
+                $display("AND: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
 				if( Z !== (X & Y) ) begin
 					$display("ERROR: AND:  op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
 					error = error + 1;
 				end
 			end
 			// ADD IN YOUR OWN OP CODE CHECKERS HERE!!!
-			`ALU_OP_XOR : begin
+			`ALU_OP_XOR: begin
+                $display("XOR: op_code=%b, X=%h, Y=%h, Z=%h", op_code, X, Y, Z);
+
 			end
-			`ALU_OP_OR : begin
+			`ALU_OP_OR: begin
+                $display("OR:  op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
 			end
 			`ALU_OP_NOR: begin
 			end

@@ -12,7 +12,7 @@ module mux_8to1(A, B, C, D, E, F, G, H, S, Z);
     input wire [2:0] S;
     output wire [(WIDTH-1):0] Z;
 
-    wire mux_0_out, mux_1_out;
+    wire [(WIDTH)-1:0] mux_0_out, mux_1_out;
 
     mux_4to1 #(.WIDTH(WIDTH)) MUX_0 (
         .A(A),
@@ -30,7 +30,7 @@ module mux_8to1(A, B, C, D, E, F, G, H, S, Z);
         .S(S[2:1]),
         .Z(mux_1_out)
     );
-    mux_2to1 #(.N(WIDTH)) MUX_2 (
+    mux_2to1 #(.WIDTH(WIDTH)) MUX_2 (
         .X(mux_0_out),
         .Y(mux_1_out),
         .S(S[0]),

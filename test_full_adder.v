@@ -22,6 +22,15 @@ module test_full_adder;
         .Cout(Cout),
         .S(S)
     );
+    
+    // checker
+    always @(A or Y) begin
+        #1
+        if (Cout == (A && B)) begin
+            $display("ERROR: A=%b, B=%b, Cout=%b", A, B, Cout);
+            $stop;
+        end
+    end
 
     initial begin
         // GTKWave test

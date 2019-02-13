@@ -3,16 +3,16 @@
 
 // CS 141
 // Module Name: mux_16to1
-// Description: parameterized
+// Description: parameterized 16-to-1 mux
 
 module mux_16to1(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, S, Z);
     parameter WIDTH = 32;
 
     input wire [(WIDTH-1):0] A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P;
     input wire [3:0] S;
-    output wire [(WIDTH-1):0] Z
+    output wire [(WIDTH-1):0] Z;
 
-    wire mux_0_out, mux_1_out;
+    wire [(WIDTH)-1:0] mux_0_out, mux_1_out;
 
     mux_8to1 #(.WIDTH(WIDTH)) MUX_0 (
         .A(A),
@@ -38,7 +38,7 @@ module mux_16to1(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, S, Z);
         .S(S[3:1]),
         .Z(mux_1_out)
     );
-    mux_2to1 #(.N(WIDTH)) MUX_2 (
+    mux_2to1 #(.WIDTH(WIDTH)) MUX_2 (
         .X(mux_0_out),
         .Y(mux_1_out),
         .S(S[0]),
