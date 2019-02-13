@@ -22,3 +22,6 @@ mux2:
 	$(CC) -o mux2.o test_mux_2to1.v mux_2to1.v
 	vvp mux2.o
 
+clean:
+	rm *.o
+
