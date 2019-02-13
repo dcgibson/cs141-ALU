@@ -54,7 +54,7 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
   ripple_adder32 ADD_0 (
       .X(X),
       .Y(Y),
-      .Cin(0),
+      .Cin(1'b0),
       .Cout(overflow),
       .S(add_0)
   );
