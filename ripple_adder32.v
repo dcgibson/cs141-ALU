@@ -20,7 +20,7 @@ module ripple_adder32(X, Y, Cin, Cout, S);
 
     generate
         genvar i;
-        for (i = 0; i < 32; i = i + 1) begin
+        for (i = 0; i < 32; i = i + 1) begin : for_loop
             full_adder full_add_gen (
                 .A(X[i]),
                 .B(Y[i]),
