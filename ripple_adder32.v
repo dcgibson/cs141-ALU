@@ -4,8 +4,8 @@
 // CS 141
 // Module Name: ripple_adder32
 // Description: Sums two 32-bit inputs and a carry in bit to
-//  produce a 32-bit result and a carry out. Based on the
-//  Ripple-Carry Adder in the textbook.
+//      produce a 32-bit result and a carry out. Based on the
+//      Ripple-Carry Adder in the textbook.
 
 module ripple_adder32(X, Y, Cin, Cout, S);
     input wire [31:0] X, Y;
@@ -14,13 +14,21 @@ module ripple_adder32(X, Y, Cin, Cout, S);
     output wire [31:0] S;
     output wire Cout;
 
+    // These wires connect the individual Full-Adder gates,
+    // carrying the carry out from one gate into the carry in
+    // of the next. We need 33 because one will need to carry
+    // in the initial Cin bit, and the last will assign the 
+    // last carry out bit to Cout.
     wire [32:0] w;
 
     assign w[0] = Cin;
 
+    // Generates 32 Full-Adder gates, with the Cin input 
+    // connected to the previous gate's Cout, and the Cout
+    // output connecting to the next gate's Cin.
     generate
         genvar i;
-        for (i = 0; i < 32; i = i + 1) begin : for_loop
+        for (i = 0; i < 32; i = i + 1) begin : full_adder_loop
             full_adder full_add_gen (
                 .A(X[i]),
                 .B(Y[i]),
