@@ -30,38 +30,38 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
       .X(X),
       .Y(Y),
       .Z(and_out)
-  );
+	);
 
-  or32 OR_0 (
+	or32 OR_0 (
       .X(X),
       .Y(Y),
       .Z(or_out)
-  );
-
-  xor32 XOR_0 (
+	);
+	
+	xor32 XOR_0 (
       .X(X),
       .Y(Y),
       .Z(xor_out)
-  );
+	);
 
-  nor32 NOR_0 (
+	nor32 NOR_0 (
       .X(X),
       .Y(Y),
       .Z(nor_out)
-  );
+	);
 
-  ripple_adder32 ADD_0 (
+	ripple_adder32 ADD_0 (
       .X(X),
       .Y(Y),
       .Cin(1'b0),
       .Cout(overflow),
       .S(add_out)
-  );
+	);
 
-  // Each output from the above gates is routed into the 16-to-1 mux.
-  // Based on the op_code, the appropriate result is outputted as Z.
+	// Each output from the above gates is routed into the 16-to-1 mux.
+	// Based on the op_code, the appropriate result is outputted as Z.
 
-  mux_16to1 MUX_0 (
+	mux_16to1 MUX_0 (
       .A(and_out),    // op_code 0000
       .B(or_out),     // op_code 0001
       .C(xor_out),    // op_code 0010
@@ -80,7 +80,7 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
       .P(0),
       .S(op_code),
       .Z(Z)
-  );
+	);
 
 endmodule
 `default_nettype wire //some Xilinx IP requires that the default_nettype be set to wire

@@ -32,7 +32,6 @@ module test_alu;
 		.zero(zero)
 	);
 
-	// HINT: 'integer' variables might be useful
 	integer error = 0;
 	initial begin
 		// Initialize Inputs
@@ -45,17 +44,17 @@ module test_alu;
 		// loop through all important test vectors
 		// this triggers the always block
        
-      // Checks elementary logical functions, up to but not
-      // including ADD 
-      for (op_code = 0; op_code < 4'b0101; op_code = op_code + 4'b0001) begin
-			X = 32'hFF00FF00; Y = 32'hF0FFF000; #10;
-         X = 32'hFFFFFFFF; Y = 32'hFFFFFFFF; #10;
-         X = 32'h00000000; Y = 32'hFFFFFFFF; #10;
-         X = 32'hFFFFFFFF; Y = 32'h00000000; #10;
-         X = 32'h00000000; Y = 32'h00000000; #10;
-      end
-	end
-	
+        // Checks elementary logical functions and ADD.
+        for (op_code = 0; op_code <= 4'b0101; op_code = op_code + 4'b0001) begin
+            X = 32'hFF00FF00; Y = 32'hF0FFF000; #10;
+            X = 32'hFFFFFFFF; Y = 32'hFFFFFFFF; #10;
+            X = 32'h00000000; Y = 32'hFFFFFFFF; #10;
+            X = 32'hFFFFFFFF; Y = 32'h00000000; #10;
+            X = 32'h00000000; Y = 32'h00000000; #10;
+            X = 32'hFFFFFFFF; Y = 32'hFFFF0000; #10;
+        end
+    end
+
 	// an 'always' block is executed whenever any of the variables in the sensitivity
 	// list are changed (X, Y, or op_code in this case)
 	always @(X,Y,op_code) begin
@@ -68,7 +67,6 @@ module test_alu;
 					error = error + 1;
 				end
 			end
-			// ADD IN YOUR OWN OP CODE CHECKERS HERE!!!
 			`ALU_OP_XOR: begin
                 if (Z !== (X ^ Y)) begin
                     $display("ERROR: XOR: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
@@ -88,6 +86,16 @@ module test_alu;
                 end
 			end
 			`ALU_OP_ADD: begin
+                // Test to see if there was overflow.
+                if ((X > X + Y) && (overflow !== 1)) begin
+                    $display("ERROR: ADD: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
+                    error = error + 1;
+                end
+                // If no overflow, make sure Z is the sum of X and Y
+                else if (Z !== X + Y) begin
+                    $display("ERROR: ADD: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
+                    error = error + 1;
+                end
 			end
 			`ALU_OP_SUB: begin
 			end

@@ -23,17 +23,26 @@ module test_ripple_adder32;
     );
 
     initial begin
-        // GTKWave test
-        $dumpfile("ripple_adder32.vcd");
-        $dumpvars(0, uut);
-        X = 32'b11; Y = 32'b00; Cin = 0; #10
-        X = 32'b11; Y = 32'b01; Cin = 0; #10
-        X = 32'b11; Y = 32'b00; Cin = 1; #10
-        X = 32'b1011; Y = 32'b0111; Cin = 1; #10
-        X = 32'hFFFFFFFF; Y = 32'b1; Cin = 1; #10
-        X = 32'hFFFFFFFF; Y = 32'hFFFFFFFF; Cin = 1; #10
-		  $finish;
+        X = 32'b1; Y = 32'b0; Cin = 0; #10;
+        X = 32'b1; Y = 32'b1; Cin = 0; #10;
+        X = 32'b1; Y = 32'b0; Cin = 1; #10;
+
+        X = 32'hFFFFFFFF; Y = 32'h0; Cin = 1;
+        X = 32'hFFFFFFFF; Y = 32'h1; Cin = 0;
+        
+        X = 32'hFFFFFFFF; Y = 32'hFFFFFFFF; Cin = 0;
+        X = 32'hFFFFFFFF; Y = 32'hFFFFFFFF; Cin = 1;
+
+        X = 32'hFF00FF00; Y = 32'hFFF00000; Cin = 1;
+    end
+
+    always @(X, Y, Cin) begin
+        #1;
+        if ((X > X + Y) && (Cout !== 1)) begin
+            $display("ERROR: NO OVERFLOW: X = %h, Y = %h, Cin = %b, S = %h, Cout = %b", X, Y, Cin, S, Cout);
+        end
+        else if (S !== X + Y + Cin) begin
+            $display("ERROR: X = %h, Y= %h, Cin = %b, S = %h, Cout = %b", X, Y, Cin, S, Cout);
+        end
     end
 endmodule
-        
-

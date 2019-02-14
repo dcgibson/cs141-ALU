@@ -15,7 +15,7 @@ module mux_16to1(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, S, Z);
 
     wire [(WIDTH)-1:0] mux_0_out, mux_1_out;
 
-    // Use the three least-significant bits to select two outputs
+    // Uses the three least-significant bits to select two outputs
     // to continue on to the 2-to-1 mux.
     mux_8to1 #(.WIDTH(WIDTH)) MUX_0 (
         .A(A),

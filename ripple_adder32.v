@@ -17,8 +17,8 @@ module ripple_adder32(X, Y, Cin, Cout, S);
     // These wires connect the individual Full-Adder gates,
     // carrying the carry out from one gate into the carry in
     // of the next. We need 33 because one will need to carry
-    // in the initial Cin bit, and the last will assign the 
-    // last carry out bit to Cout.
+    // in the Ripple-Adder's Cin bit, and the last will assign the 
+    // last carry out bit to the Ripple-Adder's Cout.
     wire [32:0] w;
 
     assign w[0] = Cin;
