@@ -38,7 +38,11 @@ module test_ripple_adder32;
 
     always @(X, Y, Cin) begin
         #1;
-        if ((X > X + Y) && (Cout !== 1)) begin
+        // The MSB of the inputs agree, but the MSB of the output doesn't
+        if ((X[31] && Y[31] && ~S[31]) && Cout !== 1) begin
+            $display("ERROR: NO OVERFLOW: X = %h, Y = %h, Cin = %b, S = %h, Cout = %b", X, Y, Cin, S, Cout);
+        end
+        else if ((~X[31] && ~Y[31] && S[31]) && Cout !== 1) begin
             $display("ERROR: NO OVERFLOW: X = %h, Y = %h, Cin = %b, S = %h, Cout = %b", X, Y, Cin, S, Cout);
         end
         else if (S !== X + Y + Cin) begin

@@ -24,7 +24,6 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
 	wire [31:0] and_out, or_out, xor_out, nor_out, add_out, sub_out, slt_out, srl_out, sll_out, sra_out;
 		//functional blocks
 	
-   //YOUR CODE HERE - remember to use a separate file for each module you create
 
    and32 AND_0 (
       .X(X),

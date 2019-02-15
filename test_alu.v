@@ -26,7 +26,7 @@ module test_alu;
 		.X(X), 
 		.Y(Y), 
 		.Z(Z), 
-		.op_code(op_code), 
+		.op_code(op_code),
 		.equal(equal), 
 		.overflow(overflow), 
 		.zero(zero)
@@ -52,6 +52,8 @@ module test_alu;
             X = 32'hFFFFFFFF; Y = 32'h00000000; #10;
             X = 32'h00000000; Y = 32'h00000000; #10;
             X = 32'hFFFFFFFF; Y = 32'hFFFF0000; #10;
+            X = 32'hF0000000; Y = 32'h10000000; #10;
+            X = 32'h01111111; Y = 32'hFEEEEEEE; #10;
         end
     end
 
@@ -60,6 +62,7 @@ module test_alu;
 	always @(X,Y,op_code) begin
 		#1;
 		case (op_code)
+
 			`ALU_OP_AND: begin
 				//only executes when the op code is 0000 (AND)
 				if( Z !== (X & Y) ) begin
@@ -67,36 +70,49 @@ module test_alu;
 					error = error + 1;
 				end
 			end
+
 			`ALU_OP_XOR: begin
                 if (Z !== (X ^ Y)) begin
                     $display("ERROR: XOR: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
                     error = error + 1;
                 end
 			end
+
 			`ALU_OP_OR: begin
                 if (Z !== (X | Y)) begin
                     $display("ERROR: OR: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
                     error = error + 1;
                 end
 			end
+
 			`ALU_OP_NOR: begin
                 if (Z !== (~(X | Y))) begin
                     $display("ERROR: NOR: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
                     error = error + 1;
                 end
 			end
+
 			`ALU_OP_ADD: begin
-                // Test to see if there was overflow.
-                if ((X > X + Y) && (overflow !== 1)) begin
+                // Test to see if there was overflow, by comparing
+                // the most-significant bits of the two inputs. If 
+                // they agree, but the most-significant bit of the output
+                // is the opposite sign, overflow has occurred.
+                if ((X[31] && Y[31] && ~Z[31]) && overflow !== 1) begin
                     $display("ERROR: ADD: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
                     error = error + 1;
                 end
+                else if ((~X[31] && ~Y[31] && Z[31]) && overflow !== 1) begin
+                    $display("ERROR: ADD: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
+                    error = error + 1;
+                end
+
                 // If no overflow, make sure Z is the sum of X and Y
                 else if (Z !== X + Y) begin
                     $display("ERROR: ADD: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
                     error = error + 1;
                 end
 			end
+
 			`ALU_OP_SUB: begin
 			end
 			`ALU_OP_SLT: begin
