@@ -17,6 +17,14 @@ eq4:
 	$(CC) -o eq4.o tests/test_eq4.v eq4.v
 	vvp eq4.o
 
+eq16:
+	$(CC) -o eq16.o tests/test_eq16.v eq16.v eq4.v
+	vvp eq16.o
+
+eq32:
+	$(CC) -o eq32.o tests/test_eq32.v eq32.v eq16.v eq4.v
+	vvp eq32.o
+
 clean:
 	rm *.o
 
