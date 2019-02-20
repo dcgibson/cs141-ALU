@@ -36,4 +36,5 @@ eq32:
 
 clean:
 	rm *.o
+	rm *.vcd
 
