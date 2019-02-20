@@ -1,3 +1,8 @@
+# just stuff I don't want
+*.xmsgs
+*.cmd
+*.xise
+
 # intermediate build files
 *.bgn
 *.bit

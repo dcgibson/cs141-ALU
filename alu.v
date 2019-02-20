@@ -20,12 +20,12 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
 	input  wire [3:0] op_code;
 	
 	output wire equal, overflow, zero;
-	
+
 	wire [31:0] and_out, or_out, xor_out, nor_out, add_out, sub_out, slt_out, srl_out, sll_out, sra_out;
 		//functional blocks
 	
 
-   and32 AND_0 (
+    and32 AND_0 (
       .X(X),
       .Y(Y),
       .Z(and_out)
@@ -36,7 +36,7 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
       .Y(Y),
       .Z(or_out)
 	);
-	
+
 	xor32 XOR_0 (
       .X(X),
       .Y(Y),

@@ -6,11 +6,20 @@ alu:
 	vvp alu.o
 
 ripple:
-	$(CC) -o ripple.o test_ripple_adder32.v ripple_adder32.v full_adder.v
+	$(CC) -o ripple.o tests/test_ripple_adder32.v ripple_adder32.v full_adder.v
 	vvp ripple.o
+	gtkwave test_adder.vcd
+
+sub4:
+	$(CC) -o sub4.o tests/test_ripple_add_sub4.v ripple_add_sub4.v full_adder.v mux_2to1.v
+	vvp sub4.o
+
+sub32:
+	$(CC) -o sub32.o tests/test_ripple_add_sub32.v ripple_add_sub32.v full_adder.v mux_2to1.v
+	vvp sub32.o
 
 mux16:
-	$(CC) -o mux16.o test_mux_16to1.v mux_16to1.v mux_8to1.v mux_2to1.v mux_4to1.v
+	$(CC) -o mux16.o tests/test_mux_16to1.v mux_16to1.v mux_8to1.v mux_2to1.v mux_4to1.v
 	vvp mux16.o
 
 eq4:
