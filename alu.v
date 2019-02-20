@@ -23,7 +23,12 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
 
 	wire [31:0] and_out, or_out, xor_out, nor_out, add_sub_out, slt_out, srl_out, sll_out, sra_out;
 	//functional blocks
-	
+
+    eq32 EQ_0 (
+        .X(X),
+        .Y(Y),
+        .Z(equal)
+    );
 
     and32 AND_0 (
       .X(X),

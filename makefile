@@ -2,7 +2,7 @@ CC = iverilog
 
 
 alu: 
-	$(CC) -o alu.o alu.v alu_defines.v and.v ripple_add_sub32.v ripple_adder32.v mux_16to1.v nor.v or.v test_alu.v xor.v full_adder.v half_adder.v mux_8to1.v mux_4to1.v mux_2to1.v
+	$(CC) -o alu.o alu.v alu_defines.v and.v eq32.v eq16.v eq4.v ripple_add_sub32.v ripple_adder32.v mux_16to1.v nor.v or.v test_alu.v xor.v full_adder.v half_adder.v mux_8to1.v mux_4to1.v mux_2to1.v
 	vvp alu.o
 
 ripple:
