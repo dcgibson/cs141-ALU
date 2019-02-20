@@ -54,15 +54,15 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
       .Z(nor_out)
 	);
 
-    // Route op_code[1] into Cin, to determine whether
-    // we are adding or subtracting
-	ripple_add_sub32 ADD_SUB_0 (
+	ripple_add_sub32 ADD_0 (
       .X(X),
       .Y(Y),
       .Cin(op_code[1]),
       .Cout(overflow),
       .S(add_sub_out)
 	);
+
+    assign slt_out = add_sub_out[31];
 
 	// Each output from the above gates is routed into the 16-to-1 mux.
 	// Based on the op_code, the appropriate result is outputted as Z.

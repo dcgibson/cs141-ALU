@@ -44,12 +44,12 @@ module test_alu;
 		// loop through all important test vectors
 		// this triggers the always block
        
-        for (op_code = 0; op_code <= 4'b0101; op_code = op_code + 4'b0001) begin
-            X = 32'hFF00FF00; Y = 32'hF0FFF000; #10;
+        for (op_code = 0; op_code <= 4'b0111; op_code = op_code + 4'b0001) begin
             X = 32'hFFFFFFFF; Y = 32'hFFFFFFFF; #10;
             X = 32'h00000000; Y = 32'hFFFFFFFF; #10;
             X = 32'hFFFFFFFF; Y = 32'h00000000; #10;
             X = 32'h00000000; Y = 32'h00000000; #10;
+            X = 32'h0000000F; Y = 32'h000000FF; #10;
             X = 32'hFFFFFFFF; Y = 32'hFFFF0000; #10;
             X = 32'hF0000000; Y = 32'h10000000; #10;
             X = 32'h01111111; Y = 32'hFEEEEEEE; #10;
@@ -119,21 +119,18 @@ module test_alu;
 			end
 
 			`ALU_OP_SUB: begin
-                if ((X[31] && Y[31] && ~Z[31]) && overflow !== 1 && !equal) begin
-                    $display("ERROR: ADD: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
-                    error = error + 1;
+                if (X[31] !== Y[31] && Y[31] == Z[31] && overflow !== 1) begin
+                    $display("ERROR: SUB: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
                 end
-                else if ((~X[31] && ~Y[31] && Z[31]) && overflow !== 1) begin
-                    $display("ERROR: ADD: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
-                    error = error + 1;
-                end
-
                 else if (Z !== X - Y) begin
-                    $display("ERROR: ADD: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
+                    $display("ERROR: SUB: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
                     error = error + 1;
                 end
 			end
 			`ALU_OP_SLT: begin
+                if ((X < Y) && Z !== 32'b1) begin
+                   $display("ERROR: SLT: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
+               end
 			end
 			`ALU_OP_SRL: begin
 			end
