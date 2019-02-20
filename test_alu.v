@@ -97,7 +97,11 @@ module test_alu;
                 // the most-significant bits of the two inputs. If 
                 // they agree, but the most-significant bit of the output
                 // is the opposite sign, overflow has occurred.
-                if ((X[31] && Y[31] && ~Z[31]) && overflow !== 1) begin
+                // Also tests whether X equals Y. If they do, and both are
+                // negative, then the test would wrongly think a result of
+                // 0 indicated overflow. 
+                // TODO: explain using 'equal' flag?
+                if ((X[31] && Y[31] && ~Z[31]) && overflow !== 1 && X !== Y) begin
                     $display("ERROR: ADD: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
                     error = error + 1;
                 end

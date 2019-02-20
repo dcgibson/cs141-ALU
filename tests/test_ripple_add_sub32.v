@@ -41,8 +41,9 @@ module test_ripple_add_sub32;
 
         $display("X=%h, Y=%h, Cin=%b, S=%b %h, Cout=%b", X, Y, Cin, S[31:28], S[27:0], Cout);
 
-        // Testing for overflow
-        if ((X[31] && Y[31] && ~S[31]) && Cout !== 1) begin
+        // Testing for overflow, needs to test whether X equals Y, otherwise
+        // a result of 0 triggers overflow warning
+        if ((X[31] && Y[31] && ~S[31]) && Cout !== 1 && X !== Y) begin
             $display("ERROR: NO OVERFLOW: X = %h, Y = %h, Cin = %b, S = %h, Cout = %b", X, Y, Cin, S, Cout);
         end
         else if ((~X[31] && ~Y[31] && S[31]) && Cout !== 1) begin

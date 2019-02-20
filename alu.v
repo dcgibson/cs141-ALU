@@ -49,29 +49,31 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
       .Z(nor_out)
 	);
 
-	ripple_adder32 ADD_0 (
+    // Route op_code[1] into Cin, to determine whether
+    // we are adding or subtracting
+	ripple_add_sub32 ADD_SUB_0 (
       .X(X),
       .Y(Y),
-      .Cin(1'b0),
+      .Cin(op_code[1]),
       .Cout(overflow),
-      .S(add_out)
+      .S(add_sub_out)
 	);
 
 	// Each output from the above gates is routed into the 16-to-1 mux.
 	// Based on the op_code, the appropriate result is outputted as Z.
 
 	mux_16to1 MUX_0 (
-      .A(and_out),    // op_code 0000
-      .B(or_out),     // op_code 0001
-      .C(xor_out),    // op_code 0010
-      .D(nor_out),    // op_code 0011
-      .E(0),          // op_code 0100
-      .F(add_out),    // op_code 0101
-      .G(sub_out),    // op_code 0110
-      .H(slt_out),    // op_code 0111
-      .I(srl_out),    // op_code 1000
-      .J(sll_out),    // op_code 1001
-      .K(sra_out),    // op_code 1010
+      .A(and_out),          // op_code 0000
+      .B(or_out),           // op_code 0001
+      .C(xor_out),          // op_code 0010
+      .D(nor_out),          // op_code 0011
+      .E(0),                // op_code 0100
+      .F(add_sub_out),      // op_code 0101
+      .G(add_sub_out),      // op_code 0110
+      .H(slt_out),          // op_code 0111
+      .I(srl_out),          // op_code 1000
+      .J(sll_out),          // op_code 1001
+      .K(sra_out),          // op_code 1010
       .L(0),
       .M(0),
 	  .N(0),
