@@ -62,7 +62,9 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
       .S(add_sub_out)
 	);
 
-    assign slt_out = add_sub_out[31];
+    // If X < Y, then X - Y will be negative, making the
+    // MSB of add_sub_out 1, or resulting in an overflow.
+    assign slt_out = add_sub_out[31] | overflow;
 
 	// Each output from the above gates is routed into the 16-to-1 mux.
 	// Based on the op_code, the appropriate result is outputted as Z.
