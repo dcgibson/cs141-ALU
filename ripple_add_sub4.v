@@ -15,27 +15,27 @@ module ripple_add_sub4(X, Y, Cin, Cout, S);
     output wire Cout;
 
     wire w [4:0];
-    wire v [3:0];   // Wires carrying Y[i] or notY[i] to fulladder
+    wire [3:0] v;   // Wires carrying Y or notY to fulladder
     wire [3:0] notY;
 
     assign w[0] = Cin;
 
     assign notY = ~Y;
 
-    // First, generates a 2:1 multiplexer, using the Cin bit as
-    // the selector, that chooses between the ith bit of Y and the
-    // ith bit of notY. Outputs a wire 'v', that is used as input
-    // to the full adder generated.
+    // The 2:1 multiplexer chooses between Y and notY, using
+    // the Cin bit as the selector. Outputs into the 'v'
+    // bus, which will be fed into the generated full-adder
+    // gates.
+    mux_2to1 b_notb_mux (
+        .A(Y),
+        .B(notY),
+        .S(Cin),
+        .Z(v)
+    );
+
     generate
         genvar i;
         for (i = 0; i < 4; i = i + 1) begin
-            mux_2to1 b_notb_mux (
-                .A(Y[i]),
-                .B(notY[i]),
-                .S(Cin),
-                .Z(v[i])
-            );
-
             full_adder full_add_gen (
                 .A(X[i]),
                 .B(v[i]),
