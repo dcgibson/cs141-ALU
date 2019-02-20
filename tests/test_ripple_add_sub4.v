@@ -31,6 +31,7 @@ module test_ripple_add_sub4;
         X = 4'b0000; Y = 4'b0100; Cin = 1; #10; 
         X = 4'b1001; Y = 4'b1000; Cin = 1; #10;
         X = 4'b1111; Y = 4'b0001; Cin = 1; #10;
+        X = 4'b1000; Y = 4'b1000; Cin = 1; #10;
 
 
     end
