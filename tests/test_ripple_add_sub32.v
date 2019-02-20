@@ -26,10 +26,14 @@ module test_ripple_add_sub32;
         X = 32'h0000; Y = 32'h0001; Cin = 0; #10;
         X = 32'hF000; Y = 32'h000F; Cin = 0; #10;
         X = 32'hF0000000; Y = 32'h10000000; Cin = 0; #10;
+        X = 32'h9FFFFFFF; Y = 32'h9FFFFFFF; Cin = 0; #10;
 
         X = 32'h0001; Y = 32'h0001; Cin = 1; #10;
         X = 32'h000F; Y = 32'h000E; Cin = 1; #10;
         X = 32'hFFFF; Y = 32'hFF88; Cin = 1; #10;
+
+        X = 32'hF0000000; Y = 32'hF0000000; Cin = 1; #10;
+        X = 32'h80000000; Y = 32'h7FFFFFFF; Cin = 1; #10;
     end
 
     always @(X, Y, Cin, S) begin
