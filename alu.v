@@ -21,8 +21,8 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
 	
 	output wire equal, overflow, zero;
 
-	wire [31:0] and_out, or_out, xor_out, nor_out, add_out, sub_out, slt_out, srl_out, sll_out, sra_out;
-		//functional blocks
+	wire [31:0] and_out, or_out, xor_out, nor_out, add_sub_out, slt_out, srl_out, sll_out, sra_out;
+	//functional blocks
 	
 
     and32 AND_0 (
@@ -68,8 +68,8 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
       .C(xor_out),          // op_code 0010
       .D(nor_out),          // op_code 0011
       .E(0),                // op_code 0100
-      .F(add_sub_out),      // op_code 0101
-      .G(add_sub_out),      // op_code 0110
+      .F(add_sub_out),      // op_code 0101  Addition
+      .G(add_sub_out),      // op_code 0110  Subtraction
       .H(slt_out),          // op_code 0111
       .I(srl_out),          // op_code 1000
       .J(sll_out),          // op_code 1001

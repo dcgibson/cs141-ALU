@@ -44,7 +44,6 @@ module test_alu;
 		// loop through all important test vectors
 		// this triggers the always block
        
-        // Checks elementary logical functions and ADD.
         for (op_code = 0; op_code <= 4'b0101; op_code = op_code + 4'b0001) begin
             X = 32'hFF00FF00; Y = 32'hF0FFF000; #10;
             X = 32'hFFFFFFFF; Y = 32'hFFFFFFFF; #10;
@@ -54,6 +53,9 @@ module test_alu;
             X = 32'hFFFFFFFF; Y = 32'hFFFF0000; #10;
             X = 32'hF0000000; Y = 32'h10000000; #10;
             X = 32'h01111111; Y = 32'hFEEEEEEE; #10;
+
+            X = 32'h9FFFFFFF; Y = 32'h9FFFFFFF; #10;
+            X = 32'h80000000; Y = 32'h7FFFFFFF; #10;
         end
     end
 
@@ -118,6 +120,19 @@ module test_alu;
 			end
 
 			`ALU_OP_SUB: begin
+                if ((X[31] && Y[31] && ~Z[31]) && overflow !== 1 && X !== Y) begin
+                    $display("ERROR: ADD: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
+                    error = error + 1;
+                end
+                else if ((~X[31] && ~Y[31] && Z[31]) && overflow !== 1) begin
+                    $display("ERROR: ADD: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
+                    error = error + 1;
+                end
+
+                else if (Z !== X - Y) begin
+                    $display("ERROR: ADD: op_code = %b, X = %h, Y = %h, Z = %h, overflow = %b", op_code, X, Y, Z, overflow);
+                    error = error + 1;
+                end
 			end
 			`ALU_OP_SLT: begin
 			end
