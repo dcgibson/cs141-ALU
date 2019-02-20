@@ -2,13 +2,12 @@ CC = iverilog
 
 
 alu: 
-	$(CC) -o alu.o alu.v alu_defines.v and.v ripple_adder32.v mux_16to1.v nor.v or.v test_alu.v xor.v full_adder.v half_adder.v mux_8to1.v mux_4to1.v mux_2to1.v
+	$(CC) -o alu.o alu.v alu_defines.v and.v ripple_add_sub32.v ripple_adder32.v mux_16to1.v nor.v or.v test_alu.v xor.v full_adder.v half_adder.v mux_8to1.v mux_4to1.v mux_2to1.v
 	vvp alu.o
 
 ripple:
 	$(CC) -o ripple.o tests/test_ripple_adder32.v ripple_adder32.v full_adder.v
 	vvp ripple.o
-	gtkwave test_adder.vcd
 
 sub4:
 	$(CC) -o sub4.o tests/test_ripple_add_sub4.v ripple_add_sub4.v full_adder.v mux_2to1.v
@@ -36,5 +35,3 @@ eq32:
 
 clean:
 	rm *.o
-	rm *.vcd
-
