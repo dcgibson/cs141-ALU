@@ -62,6 +62,12 @@ module alu(X,Y,Z,op_code, equal, overflow, zero);
       .S(add_sub_out)
 	);
 
+    logic_right32 SRL_0 (
+        .X(X),
+        .Shamt(Y),
+        .Y(srl_out)
+    );
+
     // If X < Y, then X - Y will be negative, making the
     // MSB of add_sub_out 1, or resulting in an overflow.
     assign slt_out = add_sub_out[31] | overflow;

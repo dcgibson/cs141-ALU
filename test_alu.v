@@ -128,7 +128,7 @@ module test_alu;
                 end
 			end
 			`ALU_OP_SLT: begin
-                if (X[31] > Y[31] && Z !== 32'b1) begin
+               if (X[31] > Y[31] && Z !== 32'b1) begin
                    $display("ERROR: SLT: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
                end
                else if (X[31] == Y[31] && X[30:0] < Y[30:0] && Z !== 32'b1) begin
@@ -137,6 +137,9 @@ module test_alu;
                end
 			end
 			`ALU_OP_SRL: begin
+                if (X >> Y !== Z) begin
+                    $display("ERROR: SRL: op_code = %b, X = %h, Y = %h, Z = %h", op_code, X, Y, Z);
+                end
 			end
 			`ALU_OP_SLL: begin
 			end
